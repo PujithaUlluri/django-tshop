@@ -11,3 +11,4 @@ class CarouselImage(models.Model):
 
     def __str__(self):
         return f"Carousel - {self.title.capitalize()}"
+        
