@@ -1,18 +1,22 @@
 from django.shortcuts import render
 from .models import CarouselImage
 
+# Views.py handles request-response
+# It also handles the DML and DQL operations required for the same.
+
+# Create your views here.
 
 def homeView(request):
     template = 'mainapp/home.html'
     context = {
-        
+        # This will be an array of all active carousel image objects mapped from DB
         'carousel_images' : CarouselImage.objects.filter(is_active = True),
     }
 
     return render(
         request = request,
         template_name= template,
-        context=context
+        context= context
     )
 
 def aboutView(request):
@@ -33,35 +37,35 @@ def contactView(request):
         context={}
     )
 
-# class based generic views
+
+# Class based generic views
 from django.views.generic import (
     CreateView,
     ListView, DetailView,
-    UpdateView,
+    UpdateView, 
     DeleteView
-
 )
+from django.urls import reverse_lazy
+
 class CarouselImageList(ListView):
     template_name = 'mainapp/carousel/carousel_list.html'
     model = CarouselImage
-    context_object_name = 'carousel_images'
+    context_object_name = 'carousel_images'    
 
 class AddCarouselImage(CreateView):
     model = CarouselImage
     template_name = 'mainapp/carousel/add_carousel.html'
     fields = '__all__'
-    success_url = '/'
+    success_url = reverse_lazy('carousel_list')
     
 class UpdateCarouselImage(UpdateView):
     model = CarouselImage
     template_name = 'mainapp/carousel/edit_carousel.html'
     fields = '__all__'
-    success_url = '/'
+    success_url = reverse_lazy('carousel_list')
     
-
 class DeleteCarouselImage(DeleteView):
     model = CarouselImage
     template_name = 'mainapp/carousel/del_carousel.html'
-    success_url = '/'
-
-
+    success_url = reverse_lazy('carousel_list')
+    context_object_name = 'carousel_image' 
