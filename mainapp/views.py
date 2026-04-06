@@ -11,6 +11,7 @@ def homeView(request):
     context = {
         # This will be an array of all active carousel image objects mapped from DB
         'carousel_images' : CarouselImage.objects.filter(is_active = True),
+        
     }
 
     return render(

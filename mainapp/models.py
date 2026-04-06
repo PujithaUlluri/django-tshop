@@ -1,5 +1,11 @@
 from django.db import models
 
+# This module models the schema
+
+# Every model listed here, when we run the migration commands,
+# Will either create, or alter related tables
+
+
 # Create your models here.
 class CarouselImage(models.Model):
     image = models.ImageField(upload_to='carousel/')
@@ -8,7 +14,6 @@ class CarouselImage(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-
+    
     def __str__(self):
         return f"Carousel - {self.title.capitalize()}"
-        

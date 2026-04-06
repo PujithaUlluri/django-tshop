@@ -10,7 +10,8 @@ Add Carousel Image
     <div class="card">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            {% for field in form %}
+            {% include 'base/includes/basicFormField'}
 
             <button type="submit">Save</button>
         </form>
